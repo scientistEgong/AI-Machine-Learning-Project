@@ -16,6 +16,5 @@ __pycache__/
 Thumbs.db
 
 # Ignore Datasets
-datasets/*
-Datasets/*
-csv/
+datasets/raw/
+datasets/processed/

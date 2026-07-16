@@ -7,7 +7,7 @@ Dataset : PlantVillage Dataset (Tushar Sharma)
 
 Purpose
 -------
-Loads trained models and class labels for inference.
+Loads trained models for inference.
 
 This module serves as the central prediction engine for the
 entire Streamlit application.
@@ -31,66 +31,33 @@ if PROJECT_ROOT not in sys.path:
 # IMPORTS
 # ==========================================================
 
-import json
 from pathlib import Path
+import time
 
+import numpy as np
 import streamlit as st
 import tensorflow as tf
 
 from config import (
     MODEL_PATHS,
+    CLASS_NAMES,
+    NUM_CLASSES,
+    TOP_K,
+    CONFIDENCE_DECIMALS,
+    CUSTOM_CNN,
+    FEATURE_EXTRACTION,
+    FINE_TUNED,
+    COMPARE_ALL,
 )
-
-# ==========================================================
-# PROJECT PATHS
-# ==========================================================
-
-BASE_DIR = Path(PROJECT_ROOT)
-
-ARTIFACTS_DIR = BASE_DIR / "artifacts"
-
-CLASS_NAMES_PATH = ARTIFACTS_DIR / "class_names.json"
-
-# ==========================================================
-# LOAD CLASS NAMES
-# ==========================================================
-
-def load_class_names():
-    """
-    Load class names from JSON file.
-
-    Returns
-    -------
-    list[str]
-        Ordered list of class labels used during training.
-    """
-
-    if not CLASS_NAMES_PATH.exists():
-        raise FileNotFoundError(
-            f"Class names file not found:\n{CLASS_NAMES_PATH}"
-        )
-
-    with open(CLASS_NAMES_PATH, "r", encoding="utf-8") as file:
-        class_names = json.load(file)
-
-    return class_names
-
-
-CLASS_NAMES = load_class_names()
-
-NUM_CLASSES = len(CLASS_NAMES)
 
 # ==========================================================
 # LOAD MODELS
 # ==========================================================
 
-@st.cache_resource
+@st.cache_resource(show_spinner="Loading AI models...")
 def load_models():
     """
-    Load all trained TensorFlow models.
-
-    Models are cached so they are only loaded once
-    during the Streamlit session.
+    Load and cache all trained TensorFlow models.
 
     Returns
     -------
@@ -109,9 +76,16 @@ def load_models():
                 f"Model not found:\n{model_path}"
             )
 
-        models[model_name] = tf.keras.models.load_model(model_path)
+        try:
+            models[model_name] = tf.keras.models.load_model(model_path)
+
+        except Exception as error:
+            raise RuntimeError(
+                f"Failed to load '{model_name}' model.\n{error}"
+            )
 
     return models
+
 
 # ==========================================================
 # INITIALIZE MODEL CACHE
@@ -140,5 +114,12 @@ if __name__ == "__main__":
 
     for label in CLASS_NAMES[:5]:
         print(f" - {label}")
+
+    print("\nAvailable Models")
+
+    print(f"• {CUSTOM_CNN}")
+    print(f"• {FEATURE_EXTRACTION}")
+    print(f"• {FINE_TUNED}")
+    print(f"• {COMPARE_ALL}")
 
     print("\nPrediction engine initialized successfully.")

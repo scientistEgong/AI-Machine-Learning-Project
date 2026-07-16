@@ -185,9 +185,6 @@ ABOUT_PAGE = "ℹ️ About"
 # print("Loaded classes:", len(CLASS_NAMES))
 CLASS_NAMES_FILE = ARTIFACTS_DIR / "class_names.json"
 
-print("=" * 60)
-print("CLASS_NAMES_FILE:", CLASS_NAMES_FILE)
-print("Exists:", CLASS_NAMES_FILE.exists())
 
 if CLASS_NAMES_FILE.exists():
     with open(CLASS_NAMES_FILE, "r", encoding="utf-8") as file:
@@ -262,4 +259,5 @@ CACHE_MODELS = True
 CACHE_DISEASE_INFO = True
 
 CACHE_CLASS_NAMES = True
-print(BASE_DIR)
+
+

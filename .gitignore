@@ -1,20 +1,40 @@
-# Virtual environment
-.venv/
-
-# Python
+# Byte-compiled files
 __pycache__/
 *.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# VS Code
-.vscode/
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# Logs
+logs/
+
+# Generated outputs
+outputs/
+reports/
+datasets/raw/
+datasets/processed/
+datasets/app_files/
 
 # OS files
 .DS_Store
 Thumbs.db
 
-# Ignore Datasets
-datasets/raw/
-datasets/processed/
+# Temporary files
+*.tmp
+*.temp

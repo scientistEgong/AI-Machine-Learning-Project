@@ -109,7 +109,7 @@ Despite these minor fluctuations, all runs showed the same overall trend: steadi
 
 ## 6. Repository / File Notes
 
-- **Notebook:** `lab7_hvac_23_EG_CO_027.ipynb` *(or equivalent — rename to match your actual file)*
+- **Notebook:** `lab7__23_EG_CO_027.ipynb` 
 - **Dataset path expected:** `../datasets/raw/SZCAV.csv`
 - **Output path expected:** `../output/png_files/ann_confusion_matrix.png`
 - Ensure these relative paths exist (or are updated) when cloning/running the notebook fresh.

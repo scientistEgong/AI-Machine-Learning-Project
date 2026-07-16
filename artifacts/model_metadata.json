@@ -1,0 +1,20 @@
+{
+    "dataset": "PlantVillage Dataset",
+    "num_classes": 29,
+    "class_names_file": "class_names.json",
+    "image_height": 128,
+    "image_width": 128,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "seed": 42,
+    "framework": "TensorFlow",
+    "tensorflow_version": "2.20.0",
+    "validation_loss": 0.07510333508253098,
+    "validation_accuracy": 0.9770448207855225,
+    "transfer_learning": {
+        "backbone": "MobileNetV3Small",
+        "validation_loss": 0.19210560619831085,
+        "validation_accuracy": 0.9366868138313293,
+        "epochs": 20
+    }
+}

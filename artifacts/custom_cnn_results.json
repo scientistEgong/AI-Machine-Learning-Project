@@ -1,0 +1,7 @@
+{
+    "model": "Custom CNN",
+    "test_accuracy": 0.9785819793205317,
+    "validation_accuracy": 0.9770448207855225,
+    "validation_loss": 0.07510333508253098,
+    "epochs": 20
+}

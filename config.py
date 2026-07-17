@@ -85,6 +85,7 @@ MODEL_INFORMATION = {
     CUSTOM_CNN: {
         "architecture": "Custom CNN",
         "description": "CNN model developed from scratch."
+        
     },
 
     FEATURE_EXTRACTION: {
@@ -102,9 +103,9 @@ MODEL_INFORMATION = {
 # IMAGE SETTINGS
 # ==========================================================
 
-IMAGE_HEIGHT = 224
+IMAGE_HEIGHT = 128
 
-IMAGE_WIDTH = 224
+IMAGE_WIDTH = 128
 
 IMAGE_CHANNELS = 3
 
@@ -158,7 +159,7 @@ ERROR_COLOR = "#E74C3C"
 
 HOME_PAGE = "🏠 Home"
 
-DETECTION_PAGE = "🔬 Disease Detection"
+DETECTION_PAGE =  "🔍 Disease Detection"
 
 PERFORMANCE_PAGE = "📊 Model Performance"
 

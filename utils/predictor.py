@@ -48,6 +48,7 @@ from config import (
     FEATURE_EXTRACTION,
     FINE_TUNED,
     COMPARE_ALL,
+    SHOW_TOP_PREDICTIONS,
 )
 
 # ==========================================================
@@ -92,6 +93,62 @@ def load_models():
 # ==========================================================
 
 MODELS = load_models()
+# ==========================================================
+# PREDICTION FUNCTION
+# ==========================================================
+
+def predict_image(model, image_array):
+    """
+    Run prediction on preprocessed image.
+
+    Parameters
+    ----------
+    model:
+        Loaded TensorFlow model
+
+    image_array:
+        Preprocessed image batch
+
+    Returns
+    -------
+    dict
+        Prediction results
+    """
+
+    predictions = model.predict(
+        image_array,
+        verbose=0
+    )
+
+
+    probabilities = predictions[0]
+
+
+    top_indices = np.argsort(probabilities)[::-1][:TOP_K]
+
+
+    results = []
+
+
+    for index in top_indices:
+
+        results.append(
+            {
+                "class": CLASS_NAMES[index],
+                "confidence": round(
+                    float(probabilities[index]) * 100,
+                    CONFIDENCE_DECIMALS
+                )
+            }
+        )
+
+
+    return {
+        "prediction": results[0]["class"],
+        "confidence": results[0]["confidence"],
+        "top_predictions": results
+    }
+
 # ==========================================================
 # STANDALONE TEST
 # ==========================================================

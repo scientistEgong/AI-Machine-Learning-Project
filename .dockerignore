@@ -1,0 +1,32 @@
+# Git and Python environments
+.git/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Jupyter and development files
+.ipynb_checkpoints/
+.ipython/
+.pytest_cache/
+.mypy_cache/
+
+# Local environment and secrets
+.env
+.env.*
+
+# Training data and generated outputs
+datasets/
+notebooks/
+output/
+outputs/
+reports/
+
+# Documentation and development-only configuration
+docs/
+.devcontainer/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

@@ -4,6 +4,7 @@ A deep-learning application for classifying plant leaf images into supported hea
 
 - **Live application:** https://ai-powered-plant-detection-inference-engine.streamlit.app/
 - **Repository:** https://github.com/scientistEgong/AI-Machine-Learning-Project
+**Docker support:** AI-Powered-Plant-Detection can also run locally inside a Docker container. The Docker image includes the application, its required dependencies, and the saved model artifacts. See [Deployment and containerization](#deployment-and-containerization) for instructions.
 
 > **Important:** This is an educational machine-learning demonstration and decision-support prototype, not a confirmed agricultural diagnosis. Do not use its prediction alone to decide on pesticide application, crop destruction, or other costly interventions. Confirm suspected disease with a qualified agricultural extension officer or plant-health specialist.
 
@@ -119,6 +120,7 @@ A displayed confidence score is a model output. Unless calibration has been expl
 - **JSON artifacts** — class mapping, model metadata, recorded metrics, and disease information
 - **Git and GitHub** — source control and hosting
 - **Streamlit Community Cloud** — hosted application deployment
+- **Docker** — packages the application, runtime dependencies, and model artifacts into a reproducible container image.
 
 ## Repository structure
 
@@ -127,6 +129,8 @@ AI-Machine-Learning-Project/
 ├── app.py                         # Streamlit interface and page routing
 ├── config.py                      # App settings, model paths, labels, input size
 ├── requirements.txt               # Python package requirements
+|── Dockerfile # Instructions for building the Docker Image
+├── .dockerignore # Excludes unnecessary files from the build context
 ├── models/
 │   ├── custom_cnn_final.keras
 │   ├── tl_feature_extraction_final.keras
@@ -315,6 +319,57 @@ The project has not established through a prospective field study that using its
 The public demonstration is hosted on Streamlit Community Cloud. The entry point is `app.py`, and `requirements.txt` supplies packages for the hosted environment.
 
 Containerization is a planned engineering step. A Docker image should include only the files needed for inference and a repeatable startup command. A successful Docker build does not by itself prove predictions are correct: the container must also be tested with representative images and the saved model artifacts.
+## Deployment and containerization
+
+The public demonstration is hosted on Streamlit Community Cloud:
+
+[Open AppleGuard AI](https://ai-powered-plant-detection-inference-engine.streamlit.app/)
+
+The application is also packaged as a Docker image for local execution. The Docker image has been built successfully, and the container has been tested with the application's prediction and PDF report-generation workflows.
+
+### Prerequisites
+
+- Docker Desktop installed and running on Windows, macOS, or Linux.
+- The project repository available locally.
+- Sufficient disk space and memory for the image, TensorFlow, and the saved models.
+
+### Build the Docker image
+
+From the project root directory, run:
+
+```bash
+docker build -t plant-disease-detection-ai .
+```
+
+This command builds the image using the instructions in the `Dockerfile`. The initial build can take considerable time because it installs Python dependencies and packages the model artifacts.
+
+### Run the application
+
+```bash
+docker run --rm -p 8501:8501 plant-disease-detection-ai:latest
+```
+
+Once Streamlit starts, open:
+
+[http://localhost:8501](http://localhost:8501)
+
+The application runs locally in the browser while the container is running.
+
+### Stop the application
+
+Press `Ctrl + C` in the terminal where the container is running.
+
+The `--rm` option removes the stopped container automatically. It does not remove the built Docker image, so the image can be used again without rebuilding it.
+
+### Important operational notes
+
+- **Image size:** The current local Docker image is approximately 4.57 GB. Actual storage requirements may vary with future changes.
+- **Model artifacts:** The image includes the saved model files required by the configured application.
+- **PDF reports:** Generated reports can be downloaded by users. With the current `--rm` command and no persistent volume, files stored only inside the container should not be assumed to survive container removal.
+- **Local versus public access:** `localhost:8501` is the local address, not a public deployment URL. Publishing the Docker image or deploying the container to a hosting service would be a separate step.
+- **Resource requirements:** TensorFlow and multiple saved models can require substantial memory and disk space. Performance depends on the host machine and available CPU/RAM.
+
+A successful Docker build and local feature test demonstrate that the packaged application can run in the tested environment. They do not establish production availability, performance on every machine, or agricultural diagnostic reliability.
 
 ## Reproducibility and responsible use
 
